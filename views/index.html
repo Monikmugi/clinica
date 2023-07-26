@@ -7,24 +7,54 @@
   <title>Aplicativo</title>
   <!-- Agrega el enlace al archivo CSS de Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
   <div class="container">
-    <h1 class="mt-5">Aplicativo</h1>
+    <h1 class="display-1 text-primary"> Registros Clinica </h1>
 
     <!-- Enlaces para acceder a los formularios de creación de pacientes, doctores y citas -->
-    <div class="my-4">
-      <a href="/crear-paciente" class="btn btn-primary mr-2">Crear Paciente</a>
-      <a href="/consultar-pacientes" class="btn btn-primary">Consultar Pacientes</a>
-      <a href="/crear-doctor" class="btn btn-primary mr-2">Crear Doctor</a>
-      <a href="/crear-cita" class="btn btn-primary">Crear Cita</a>
+    <div class="btn-group">
+      <div class="btn-group">  
+      <a href="/crear-paciente" class="btn btn-primary mr-2">
+        <img src="../images/paciente-icon.png" alt="Crear Paciente" class="btn-icon">
+        Crear Paciente 
+      </a>
+
+      <a href="/consultar-pacientes" class="btn btn-primary">
+        <img src="../images/paciente-icon-lista.png" alt="Consultar Pacientes" class="btn-icon">
+        Consultar Pacientes
+      </a>
+
+      <a href="/crear-doctor" class="btn btn-primary mr-2">
+        <img src="../images/doctor-icon.png" alt="Crear Doctor" class="btn-icon">
+        Crear Doctor
+      </a>
+      </div>
+
+      <div class="btn-group">
+      <a href="/consultar-doctores" class="btn btn-primary">
+        <img src="../images/doctor-icon-lista.png" alt="Consultar Doctores" class="btn-icon">
+        Consultar Doctores
+      </a>
+
+      <a href="/crear-cita" class="btn btn-primary mr-2">
+        <img src="../images/cita-icon.png" alt="Crear Cita" class="btn-icon">
+        Crear Cita
+      </a>
+
+      <a href="/consultar-citas" class="btn btn-primary">
+        <img src="../images/citas-icon-lista.png" alt="Consultar Citas" class="btn-icon">
+        Consultar Citas
+      </a>
+      </div>
+
     </div>
   </div>
 
   <!-- Agrega el enlace al archivo JS de Bootstrap -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 </body>
 
 </html>

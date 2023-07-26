@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Doctor</title>
+  <!-- Agrega el enlace al archivo CSS de Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="mt-5">Editar Doctor</h1>
+
+    <!-- Formulario para editar el doctor -->
+    <form action="/actualizar-doctor/<%= doctor._id %>" method="POST">
+      <div class="form-group">
+        <label for="firstName">Nombre:</label>
+        <input type="text" id="firstName" name="firstName" value="<%= doctor.firstName %>" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Apellido:</label>
+        <input type="text" id="lastName" name="lastName" value="<%= doctor.lastName %>" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="specialty">Especialidad:</label>
+        <input type="text" id="specialty" name="specialty" value="<%= doctor.specialty %>" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="office">Consultorio:</label>
+        <input type="text" id="office" name="office" value="<%= doctor.office %>" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<%= doctor.email %>" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+      <a href="/consultar-doctores" class="btn btn-secondary">Cancelar</a>
+    </form>
+
+  </div>
+
+  <!-- Agrega el enlace al archivo JS de Bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

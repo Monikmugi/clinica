@@ -1,0 +1,51 @@
+/* Estilos generales */
+body {
+  font-family: Verdana, sans-serif;
+  background-color: #f0f2f5; /* Color de fondo similar a Facebook */
+}
+
+.container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+/* Estilos para los botones con iconos medianos */
+.btn {
+  justify-content: center;
+  padding: 10px; /* Reducir el padding para hacer los botones más compactos */
+  border-radius: 8px; /* Redondear los bordes */
+  background-color: #1877f2; /* Color de fondo de los botones similar al de Facebook */
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+  margin-right: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sutil sombra */
+}
+
+.btn:last-child {
+  margin-right: 0;
+}
+
+.btn-icon  {
+  width: 150px; /* Tamaño específico para todas las imágenes */
+  height: 130px; /* Tamaño específico para todas las imágenes */
+  margin-right: 10px; /* Espacio entre el icono y el texto del botón */
+  border-radius: 10%; /* Aplica un borde redondeado a la imagen */
+}
+
+
+/* Estilos para los botones de color cuando se les pasa el mouse */
+.btn:hover {
+  background-color: #166fe5; /* Cambia el color de fondo al pasar el mouse */
+}
+
+/* Estilo para el enlace */
+a {
+  text-decoration: none;
+  color: inherit;
+}

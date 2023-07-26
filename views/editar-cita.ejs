@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Cita</title>
+  <!-- Agrega el enlace al archivo CSS de Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="mt-5">Editar Cita</h1>
+
+    <!-- Formulario para editar la cita -->
+    <form action="/actualizar-cita/<%= cita._id %>" method="POST">
+      <div class="form-group">
+        <label for="patientDocument">Documento del Paciente:</label>
+        <input type="text" id="patientDocument" name="patientDocument" value="<%= cita.patientDocument %>"
+          class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="doctor">Doctor:</label>
+        <select id="doctor" name="doctor" class="form-control" required>
+          <% if (doctors && cita.doctor) { %>
+            <% doctors.forEach(doctor => { %>
+              <% if (doctor._id.toString() === cita.doctor.toString()) { %>
+                <option value="<%= doctor._id %>" selected><%= doctor.firstName %> <%= doctor.lastName %></option>
+              <% } else { %>
+                <option value="<%= doctor._id %>"><%= doctor.firstName %> <%= doctor.lastName %></option>
+              <% } %>
+            <% }); %>
+          <% } else { %>
+            <!-- If no doctors or cita.doctor is null, show a default option -->
+            <option value="" selected>Seleccionar Doctor</option>
+          <% } %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="date">Fecha:</label>
+        <input type="date" id="date" name="date" type="date" value="<%= cita.date %>" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+      <a href="/consultar-citas" class="btn btn-secondary">Cancelar</a>
+    </form>
+
+  </div>
+
+  <!-- Agrega el enlace al archivo JS de Bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

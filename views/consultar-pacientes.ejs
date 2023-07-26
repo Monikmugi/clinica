@@ -41,32 +41,33 @@
   <!-- Script to fetch and populate the table of patients -->
   <script>
     // Function to fetch and populate the table of patients
-    async function populatePatients() {
-      try {
-        const response = await fetch('/patients');
-        const patients = await response.json();
+async function populatePatients() {
+  try {
+    const response = await fetch('/patients');
+    const patients = await response.json();
 
-        const patientTableBody = document.getElementById('patientTableBody');
+    const patientTableBody = document.getElementById('patientTableBody');
 
-        patients.forEach(patient => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${patient.name}</td>
-            <td>${patient.lastName}</td>
-            <td>${patient.cedula}</td>
-            <td>${patient.age}</td>
-            <td>${patient.phone}</td>
-            <td>
-              <a href="/editar-paciente/${patient._id}" class="btn btn-primary btn-sm">Editar</a>
-              <button onclick="deletePatient('${patient._id}')" class="btn btn-danger btn-sm">Eliminar</button>
-            </td>
-          `;
-          patientTableBody.appendChild(row);
-        });
-      } catch (error) {
-        console.error('Error fetching patients:', error);
-      }
-    }
+    patients.forEach(patient => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${patient.name}</td>
+        <td>${patient.lastName}</td>
+        <td>${patient.cedula}</td>
+        <td>${patient.age}</td>
+        <td>${patient.phone}</td>
+        <td>
+          <a href="/editar-paciente/${patient._id}" class="btn btn-primary btn-sm">Editar</a>
+          <button onclick="deletePatient('${patient._id}')" class="btn btn-danger btn-sm">Eliminar</button>
+        </td>
+      `;
+      patientTableBody.appendChild(row);
+    });
+  } catch (error) {
+    console.error('Error fetching patients:', error);
+  }
+}
+
 
     // Function to delete a patient
     async function deletePatient(patientId) {

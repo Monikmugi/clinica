@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Crear Cita</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container"> 
+    <h1 class="mt-5" >Crear Cita</h1>
+    <form action="/citas" method="POST">
+
+      <div class="form-row">  
+        <div class="form-group col-md-5"> 
+          <label for="patientDocument">Cédula del paciente:</label>
+          <input class="form-control" type="text" id="patientDocument" name="patientDocument" required>
+          <a class="btn btn-primary" type="button" onclick="buscarPaciente()">Buscar</a>
+        </div>
+      </div>
+
+        <div class="form-row">  
+          <div class="form-group col-md-5"> 
+            <label for="doctor">Doctor:</label>
+            <select  class="form-control"  id="doctor" name="doctor" required onchange="actualizarEspecialidades()">
+            <% for (const doctor of doctors) { %>
+                <option value="<%= doctor._id %>"><%= doctor.firstName %> <%= doctor.lastName %></option>
+            <% } %>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row">  
+          <div class="form-group col-md-5"> 
+            <label  for="specialty">Especialidad:</label>
+            <select class="form-control" id="specialty" name="specialty" required>
+            <!-- Opciones de especialidades se agregarán dinámicamente con JavaScript -->
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">  
+          <div class="form-group col-md-5"> 
+            <label for="date">Fecha y Hora:</label>
+            <input class="form-control" type="date" id="date" name="date" required>
+          </div>
+        </div>
+     
+
+        <button type="submit" class="btn btn-primary">Crear Cita</button>
+        <a href="/" class="btn btn-secondary">Volver al Inicio</a>
+    </form>
+
+    <div id="paciente-info" style="display: none;">
+        <h2>Información del Paciente</h2>
+        <p>Nombre: <span id="nombre-paciente"></span></p>
+        <p>Apellido: <span id="apellido-paciente"></span></p>
+        <p>Edad: <span id="edad-paciente"></span></p>
+        <p>Teléfono: <span id="telefono-paciente"></span></p>
+    </div>
+
+  </div> 
+
+    <script>
+      function buscarPaciente() {
+          const cedula = document.getElementById("patientDocument").value;
+          fetch(`/buscar-paciente/${cedula}`)
+              .then(response => response.json())
+              .then(data => {
+                  if (data) {
+                      document.getElementById("nombre-paciente").textContent = data.name;
+                      document.getElementById("apellido-paciente").textContent = data.lastName;
+                      document.getElementById("edad-paciente").textContent = data.age;
+                      document.getElementById("telefono-paciente").textContent = data.phone;
+                      document.getElementById("paciente-info").style.display = "block";
+                  } else {
+                      alert("Paciente no encontrado");
+                      document.getElementById("paciente-info").style.display = "none";
+                  }
+              })
+              .catch(error => console.error("Error al buscar paciente:", error));
+      }
+  
+      function actualizarEspecialidades() {
+        const doctorId = document.getElementById("doctor").value;
+        fetch(`/doctors/${doctorId}/specialties`)
+            .then(response => response.json())
+            .then(data => {
+                const specialtySelect = document.getElementById("specialty");
+                specialtySelect.innerHTML = ""; // Limpiar las opciones existentes
+
+                if (data && data.specialties && data.specialties.length > 0) {
+                    // Agregar las nuevas opciones al select
+                    data.specialties.forEach(specialty => {
+                        const option = document.createElement("option");
+                        option.value = specialty;
+                        option.textContent = specialty;
+                        specialtySelect.appendChild(option);
+                    });
+                } else {
+                    // Mostrar un mensaje si el doctor no tiene especialidades
+                    const option = document.createElement("option");
+                    option.textContent = "Sin especialidades";
+                    specialtySelect.appendChild(option);
+                }
+            })
+            .catch(error => console.error("Error al obtener especialidades del doctor:", error));
+    }
+  </script>
+  
+</body>
+</html>

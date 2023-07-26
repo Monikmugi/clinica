@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultar Citas</title>
+  <!-- Agrega el enlace al archivo CSS de Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="mt-5">Consultar Citas</h1>
+
+    <!-- Tabla para mostrar la lista de citas -->
+    <table class="table table-striped mt-4">
+      <thead>
+        <tr>
+          <th>Documento del Paciente</th>
+          <th>Doctor</th>
+          <th>Especialidad</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="citaTableBody">
+        <!-- Cita records will be dynamically loaded here -->
+        <% citas.forEach(cita => { %>
+          <tr>
+            <td><%= cita.patientDocument %></td>
+            <td>
+              <% if (cita.doctor) { %>
+                <%= cita.doctor.firstName %> <%= cita.doctor.lastName %>
+              <% } else { %>
+                Doctor Not Available
+              <% } %>
+            </td>
+            <td><%= cita.specialty %></td>
+            <td><%= cita.date %></td>
+            <td>
+              <a href="/editar-cita/<%= cita._id %>" class="btn btn-primary btn-sm">Editar</a>
+              <button onclick="deleteCita('<%= cita._id %>')" class="btn btn-danger btn-sm">Eliminar</button>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    <a href="/crear-cita" class="btn btn-primary">Crear Nueva Cita</a>
+    <a href="/" class="btn btn-secondary">Volver al Inicio</a>
+  </div>
+
+  <!-- Agrega el enlace al archivo JS de Bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Script to fetch and populate the table of citas -->
+  <script>
+    // Function to delete a cita
+    async function deleteCita(citaId) {
+      if (confirm('¿Estás seguro de eliminar esta cita?')) {
+        try {
+          await fetch(`/citas/${citaId}`, { method: 'DELETE' });
+          location.reload(); // Refresh the page after deleting the cita
+        } catch (error) {
+          console.error('Error deleting cita:', error);
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

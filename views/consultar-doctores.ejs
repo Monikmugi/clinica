@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultar Doctores</title>
+  <!-- Agrega el enlace al archivo CSS de Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="mt-5">Consultar Doctores</h1>
+
+    <!-- Tabla para mostrar la lista de doctores -->
+    <table class="table table-striped mt-4">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Especialidad</th>
+          <th>Consultorio</th>
+          <th>Email</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="doctorTableBody">
+        <!-- Doctor records will be dynamically loaded here -->
+      </tbody>
+    </table>
+
+    <a href="/crear-doctor" class="btn btn-primary">Crear Nuevo Doctor</a>
+    <a href="/" class="btn btn-secondary">Volver al Inicio</a>
+  </div>
+
+  <!-- Agrega el enlace al archivo JS de Bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Script to fetch and populate the table of doctors -->
+  <script>
+    // Function to fetch and populate the table of doctors
+    async function populateDoctors() {
+      try {
+        const response = await fetch('/doctors');
+        const doctors = await response.json();
+
+        const doctorTableBody = document.getElementById('doctorTableBody');
+
+        doctors.forEach(doctor => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${doctor.firstName}</td>
+            <td>${doctor.lastName}</td>
+            <td>${doctor.specialty}</td>
+            <td>${doctor.office}</td>
+            <td>${doctor.email}</td>
+            <td>
+              <a href="/editar-doctor/${doctor._id}" class="btn btn-primary btn-sm">Editar</a>
+              <button onclick="deleteDoctor('${doctor._id}')" class="btn btn-danger btn-sm">Eliminar</button>
+            </td>
+          `;
+          doctorTableBody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    }
+
+    // Function to delete a doctor
+    async function deleteDoctor(doctorId) {
+      if (confirm('¿Estás seguro de eliminar este doctor?')) {
+        try {
+          await fetch(`/doctors/${doctorId}`, { method: 'DELETE' });
+          location.reload(); // Refresh the page after deleting the doctor
+        } catch (error) {
+          console.error('Error deleting doctor:', error);
+        }
+      }
+    }
+
+    // Call the function to populate doctors when the page is loaded
+    document.addEventListener('DOMContentLoaded', populateDoctors);
+  </script>
+</body>
+
+</html>
